@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class FirstPush : MonoBehaviour
 {
-    [SerializeField] private int _impulse = 10, _minPower = 500, _maxPower = 1500;
-    [SerializeField] private float _velocity = 20;
+    [SerializeField] private int _impulse = 300, _minPower = 4000, _maxPower = 6500;
+    [SerializeField] private float _velocity = 80;
     [SerializeField] private Text DebugValue;
 
     private Rigidbody _ballRb { get { return GetComponent<Rigidbody>(); } }
@@ -48,5 +48,15 @@ public class FirstPush : MonoBehaviour
         _ballRb.freezeRotation = false;
         _ballRb.AddForce(0, 0, _impulse, ForceMode.Impulse);
         _ballRb.AddForce(0, 0, (_maxPower * percentage / 100), ForceMode.Force);
+    }
+
+    public void ChangeImpulse(float value)
+    {
+        _impulse = (int)value;
+    }
+
+    public void ChangeVelocity(float vel)
+    {
+        _velocity = vel;
     }
 }
