@@ -15,6 +15,7 @@ public class PrototypeSceneManage : MonoBehaviour
 
     private List<int> _points = new List<int>();
     private PinUp[] _pins;
+    private bool _launched = false;
 
     private void Awake()
     {
@@ -24,7 +25,8 @@ public class PrototypeSceneManage : MonoBehaviour
     private void Start()
     {
         _pins = _pinsParent.GetComponentsInChildren<PinUp>();
-        _bar.StartBar(BarStoped);
+        _launched = false;
+        //_bar.StartBar(BarStoped);
     }
 
     public void ActionRestart()
@@ -34,7 +36,8 @@ public class PrototypeSceneManage : MonoBehaviour
 
     public void ActionSpareAttempt()
     {
-        _bar.StartBar(BarStoped);
+        _launched = false;
+        //_bar.StartBar(BarStoped);
         _ball.Restart();
         _textPoints.text = string.Empty;
         int total = 0;
@@ -50,7 +53,8 @@ public class PrototypeSceneManage : MonoBehaviour
 
     public void ActionNexPlay()
     {
-        _bar.StartBar(BarStoped);
+        _launched = false;
+        //_bar.StartBar(BarStoped);
         _ball.Restart();
         for (int i = 0; i < _pins.Length; i++)
             _pins[i].RestartPosition();
@@ -65,8 +69,10 @@ public class PrototypeSceneManage : MonoBehaviour
         _textPoints.text += "Total: " + total;
     }
 
-    private void BarStoped(int powerPercentage)
+    public void Launch(int powerPercentage = 100)
     {
+        if (_launched) return;
+        _launched = true;
         _ball.Push.Push(powerPercentage);
         _follow.StartFollow();
     }
